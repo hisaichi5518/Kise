@@ -7,6 +7,7 @@
     tools:context="com.github.hisaichi5518.kise.example.MainActivity">
 
     <TextView
+        android:id="@+id/activity_main__text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
