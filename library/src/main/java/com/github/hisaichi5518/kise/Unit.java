@@ -1,8 +1,12 @@
 package com.github.hisaichi5518.kise;
 
 
-public abstract class Unit<T> implements UnitActions<T> {
-    public void invoke(T actionParam) {
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+
+public abstract class Unit<ActionParam> implements UnitActions<ActionParam> {
+    public void invoke(ActionParam actionParam) {
+        FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
+        config.fetch(0).
 
     }
 
