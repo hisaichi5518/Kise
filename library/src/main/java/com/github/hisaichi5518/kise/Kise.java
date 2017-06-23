@@ -21,7 +21,11 @@ public class Kise {
         FirebaseRemoteConfig.getInstance().setDefaults(resId);
     }
 
-    public Kise getInstance() {
+    public static void initialize() {
+        INSTANCE.kise = new Kise();
+    }
+
+    public static Kise getInstance() {
         if (INSTANCE.kise == null) {
             throw new IllegalStateException("Initialize method is not running.");
         }
