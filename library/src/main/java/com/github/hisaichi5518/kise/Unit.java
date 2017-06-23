@@ -1,4 +1,8 @@
 package com.github.hisaichi5518.kise;
 
-public class Unit {
+
+public abstract class Unit<T> implements UnitActions<T> {
+    String key() {
+        return this.getClass().getSimpleName();
+    }
 }
