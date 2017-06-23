@@ -2,7 +2,6 @@ package com.github.hisaichi5518.kise.example;
 
 import android.app.Application;
 
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
@@ -11,7 +10,6 @@ public class ExampleApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        FirebaseApp.initializeApp(this);
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
                 .setDeveloperModeEnabled(BuildConfig.DEBUG)
                 .build();
