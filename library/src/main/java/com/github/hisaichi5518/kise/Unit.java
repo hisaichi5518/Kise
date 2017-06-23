@@ -6,7 +6,7 @@ public abstract class Unit<T> implements UnitActions<T> {
 
     }
 
-    String key() {
+    protected String key() {
         return this.getClass().getSimpleName();
     }
 }
