@@ -63,6 +63,5 @@ Enjoy! :tada::tada:
 
 ### Kise
 
-- パラメータキーは作成したUnitクラスの名前と同じでなければ動作しません
 - `true` の時は`customAction`を実行し、`false`の時は`defaultAction`を実行します
 - `customAction`を実行した時に `Exception` が発生した場合は、 `defaultAction` を実行します
