@@ -3,7 +3,7 @@ package com.github.hisaichi5518.kise.unittype;
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
-public abstract class Unit {
+public abstract class Unit implements UnitType {
 
     protected abstract void customAction() throws Exception;
 

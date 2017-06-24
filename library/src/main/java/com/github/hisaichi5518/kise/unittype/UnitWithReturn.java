@@ -3,7 +3,7 @@ package com.github.hisaichi5518.kise.unittype;
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
-public abstract class UnitWithReturn<ReturnValue> {
+public abstract class UnitWithReturn<ReturnValue> implements UnitType {
     protected abstract ReturnValue customAction() throws Exception;
 
     protected abstract ReturnValue defaultAction();
