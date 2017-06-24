@@ -16,7 +16,6 @@ public abstract class Unit<ActionParam> implements UnitActions<ActionParam> {
         } else {
             defaultAction(actionParam);
         }
-        // TODO: Callback methods does not execute if Google play service is out date.
     }
 
     private String key() {
