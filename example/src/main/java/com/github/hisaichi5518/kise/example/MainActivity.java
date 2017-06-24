@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.github.hisaichi5518.kise.Kise;
 import com.github.hisaichi5518.kise.example.units.ViewVisibleUnit;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,6 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
         View view = findViewById(R.id.activity_main__text);
         assert view != null;
-        new ViewVisibleUnit().invoke(view);
+        Kise.fetchAndInvoke(new ViewVisibleUnit(), view);
     }
 }
