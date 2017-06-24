@@ -9,48 +9,13 @@ TBD
 ## Step: Unitをつくる
 
 ```java
-package com.github.hisaichi5518.kise.example.units;
-
-import android.view.View;
-
-import com.github.hisaichi5518.kise.Unit;
-
-public class ViewVisibleUnit extends Unit<View> {
-    @Override
-    public void customAction(View view) throws Exception {
-        view.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void defaultAction(View view) {
-        view.setVisibility(View.GONE);
-    }
-}
+TBD
 ```
 
-## Step: Unitを呼び出して、invoke する
+## Step: fetchしてから、invoke する
 
 ```java
-package com.github.hisaichi5518.kise.example;
-
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-
-import com.github.hisaichi5518.kise.example.units.ViewVisibleUnit;
-
-public class MainActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        View view = findViewById(R.id.activity_main__text);
-        assert view != null;
-        new ViewVisibleUnit().invoke(view);
-    }
-}
+TBD
 ```
 
 ## Step: Firebaseの設定を行う
