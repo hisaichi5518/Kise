@@ -12,10 +12,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Kise.fetch();
         setContentView(R.layout.activity_main);
 
         View view = findViewById(R.id.activity_main__text);
         assert view != null;
-        Kise.fetchAndInvoke(new ViewVisibleUnit(), view);
+        new ViewVisibleUnit(view).invoke();
     }
 }
