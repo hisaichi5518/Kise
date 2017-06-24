@@ -24,9 +24,4 @@ public class Kise {
     public void setCacheExpiration(long cacheExpiration) {
         INSTANCE.fetcher.setCacheExpiration(cacheExpiration);
     }
-
-    public static <ActionParam> void fetchAndInvoke(Unit<ActionParam> unit, ActionParam actionParam) {
-        Kise.fetch();
-        unit.invoke(actionParam);
-    }
 }
