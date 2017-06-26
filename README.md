@@ -1,67 +1,119 @@
 # 稀勢(Kise)
 
-## Step: Install Kise
+## :speedboat::dash:Quick start
 
-```
-TBD
-```
+### :one:アプリにFirebase を追加する
 
-## Step: Unitをつくる
+- `app/google-servies.json` を配置する
+- `FirebaseRemoteConfig.getInstance().setDefaults(...);` の設定を推奨します
 
-```java
-TBD
-```
+詳しくは[Firebaseのドキュメント](https://firebase.google.com/docs/android/setup)を読んでください。
 
-## Step: fetchしてから、invoke する
+### :two:FirebaseRemoteConfigにて、配信したいキーと値を設定する
 
-```java
-TBD
-```
+![](images/firebase-remote-config.png)
 
-## Step: Firebaseの設定を行う
+### :three:Unitクラスを作成する
 
 ```java
-package com.github.hisaichi5518.kise.example;
+package com.github.hisaichi5518.kise.example.units;
 
-import android.app.Application;
+import android.support.annotation.NonNull;
+import android.view.View;
 
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+import com.github.hisaichi5518.kise.unittype.Unit;
 
-public class ExampleApplication extends Application {
+public class ViewVisibleUnit extends Unit {
+    private final View view;
+
+    public ViewVisibleUnit(@NonNull View view) {
+        this.view = view;
+    }
+
     @Override
-    public void onCreate() {
-        super.onCreate();
+    protected void customAction() throws Exception {
+        // FirebaseRemoteConfigから返ってきた値が、trueであればこのアクションが実行されます
+        this.view.setVisibility(View.VISIBLE);
+    }
 
-        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-                .setDeveloperModeEnabled(BuildConfig.DEBUG)
-                .build();
-
-        FirebaseRemoteConfig.getInstance().setConfigSettings(configSettings);
-        FirebaseRemoteConfig.getInstance().setDefaults(R.xml.firebase_remote_config_defaults);
+    @Override
+    protected void defaultAction() {
+        // FirebaseRemoteConfigから返ってきた値が、falseであればこのアクションが実行されます
+        // またcustomActionがExceptionをthrowするとこのアクションが実行されます
+        this.view.setVisibility(View.GONE);
     }
 }
 ```
 
-また、 `app/google-services.json` も必要です。詳しくは[Firebaseのドキュメント](https://firebase.google.com/docs/android/setup)を読んでください。
+### :four:FirebaseRemoteConfigから値をfetchし、作成したUnitクラスのinvokeメソッドを実行する
 
-## Step: FirebaseRemoteConfigにて、配信したいキーと値を設定する
+```java
+package com.github.hisaichi5518.kise.example;
 
-![](images/firebase-remote-config.png)
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
-## Step: Finished!!!
+import com.github.hisaichi5518.kise.Kise;
+import com.github.hisaichi5518.kise.example.units.HelloTextUnit;
+import com.github.hisaichi5518.kise.example.units.ViewVisibleUnit;
 
-Enjoy! :tada::tada:
-サンプルコードは[example](example)以下にあります。
+public class MainActivity extends AppCompatActivity {
 
-## 注意点:boom::boom::boom:
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Kise.fetch(); // FirebaseRemoteConfigから値をfetchする処理
+        setContentView(R.layout.activity_main);
 
-### Firebase Remote Config
+        View view = findViewById(R.id.activity_main__text);
+        assert view != null;
+        new ViewVisibleUnit(view).invoke(); // invoke!
+    }
+}
+```
 
-- 値を`true` 以外を設定するとすべて `false` として扱われます
-- 「変更を公開する」をサブミットしないと変更は反映されません
+### :tada:Enjoy!:tada:
 
-### Kise
+すべてのサンプルコードは[example](example)以下にあります。
 
-- `true` の時は`customAction`を実行し、`false`の時は`defaultAction`を実行します
-- `customAction`を実行した時に `Exception` が発生した場合は、 `defaultAction` を実行します
+## :sunglasses:Unit types
+
+Kiseには、以下のUnit typeがあります。
+
+### Unit
+
+値をなにも指定する必要がない標準的なUnitです。
+
+サンプルコードは、 [ViewVisibleUnit](/example/src/main/java/com/github/hisaichi5518/kise/example/units/ViewVisibleUnit.java)クラスです。
+
+### UnitWithReturn
+
+返り値を指定する必要があるUnitです。
+
+サンプルコードは、 [HelloTextUnit](/example/src/main/java/com/github/hisaichi5518/kise/example/units/HelloTextUnit.java)クラスです。
+
+## :key:FirebaseRemoteConfig パラメータキーの指定
+
+KiseのFirebase RemoteConfigパラメータキーのデフォルト値は、Unitのクラス名です。
+
+しかし、以下のように `this.firebaseRemoteConfigKey` を上書きすることでFirebase RemoteConfig パラメータキーの指定を行うことが出来ます。
+
+これは、他のキーと全く同じ条件で機能の出し分けを行いたい場合に有効です。
+
+```java
+public class HelloTextUnit extends UnitWithReturn<String> {
+
+    public HelloTextUnit() {
+        this.firebaseRemoteConfigKey = "ViewVisibleUnit";
+    }
+
+    ...
+}
+```
+
+サンプルコードは、 [HelloTextUnit](/example/src/main/java/com/github/hisaichi5518/kise/example/units/HelloTextUnit.java)クラスです。
+
+### 注意
+
+- `this.firebaseRemoteConfigKey` は、コンストラクタの中で変更しなければなりません
