@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 25
@@ -7,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -31,4 +32,13 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
+}
+
+publish {
+    userOrg = 'hisaichi5518'
+    groupId = 'com.github.hisaichi5518'
+    artifactId = 'kise'
+    publishVersion = rootProject.ext.versionName
+    desc = 'Kise is an Android library for exposing new functions to a certain number of users.'
+    website = 'https://github.com/hisaichi5518/Kise'
 }
