@@ -1,5 +1,9 @@
 # 稀勢(Kise)
 
+## :thinking:What's this?
+
+Kiseは、Firebase Remote Configを利用して一定数のユーザーに新たな機能を公開するためのAndroidライブラリです。
+
 ## :speedboat::dash:Quick start
 
 ### :one:アプリにFirebase を追加する
@@ -32,14 +36,14 @@ public class ViewVisibleUnit extends Unit {
 
     @Override
     protected void customAction() throws Exception {
-        // FirebaseRemoteConfigから返ってきた値が、trueであればこのアクションが実行されます
+        // ✅ FirebaseRemoteConfigから返ってきた値が、trueであればこのアクションが実行されます
         this.view.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void defaultAction() {
-        // FirebaseRemoteConfigから返ってきた値が、falseであればこのアクションが実行されます
-        // またcustomActionがExceptionをthrowするとこのアクションが実行されます
+        // ✅ FirebaseRemoteConfigから返ってきた値が、falseであればこのアクションが実行されます
+        // ✅ またcustomActionがExceptionをthrowするとこのアクションが実行されます
         this.view.setVisibility(View.GONE);
     }
 }
@@ -63,12 +67,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Kise.fetch(); // FirebaseRemoteConfigから値をfetchする処理
+        Kise.fetch(); // ✅ FirebaseRemoteConfigから値をfetchする
         setContentView(R.layout.activity_main);
 
         View view = findViewById(R.id.activity_main__text);
         assert view != null;
-        new ViewVisibleUnit(view).invoke(); // invoke!
+        new ViewVisibleUnit(view).invoke(); // ✅ invoke!
     }
 }
 ```
@@ -117,3 +121,10 @@ public class HelloTextUnit extends UnitWithReturn<String> {
 ### 注意
 
 - `this.firebaseRemoteConfigKey` は、コンストラクタの中で変更しなければなりません
+
+
+## About Kise.fetch()
+
+Use ["Load values for next time" strategy](https://www.youtube.com/watch?v=6TWJ_rR7K6g&feature=youtu.be&t=2m29s).
+
+![](images/load-strategy.png)
