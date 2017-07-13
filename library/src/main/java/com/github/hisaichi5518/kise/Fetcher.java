@@ -1,5 +1,12 @@
 package com.github.hisaichi5518.kise;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 class Fetcher {
@@ -23,7 +30,25 @@ class Fetcher {
         FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
         config.activateFetched();
 
-        config.fetch(urgentUpdateFlag ? 0 : cacheExpiration);
+        config.fetch(urgentUpdateFlag ? 0 : cacheExpiration)
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("KiseFetcher", "onFailure: " + e.getMessage());
+                }
+            })
+            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d("KiseFetcher", "onSuccess");
+                }
+            })
+            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Log.d("KiseFetcher", "onComplete");
+                }
+            });
         disableUrgentUpdateFlag();
     }
 }
