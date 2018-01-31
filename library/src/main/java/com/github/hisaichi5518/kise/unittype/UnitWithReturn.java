@@ -13,7 +13,7 @@ public abstract class UnitWithReturn<ReturnValue> implements UnitType {
 
     public ReturnValue invoke() {
         final FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
-        if (config.getBoolean(firebaseRemoteConfigKey)) {
+        if (config != null && config.getBoolean(firebaseRemoteConfigKey)) {
             try {
                 return trueAction();
             } catch (Exception e) {

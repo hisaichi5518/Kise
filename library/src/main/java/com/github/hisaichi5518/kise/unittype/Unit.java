@@ -13,7 +13,7 @@ public abstract class Unit implements UnitType {
 
     public void invoke() {
         final FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
-        if (config.getBoolean(firebaseRemoteConfigKey)) {
+        if (config != null && config.getBoolean(firebaseRemoteConfigKey)) {
             try {
                 trueAction();
             } catch (Exception e) {
