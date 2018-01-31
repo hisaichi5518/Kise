@@ -5,7 +5,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 public abstract class Unit implements UnitType {
 
-    protected String firebaseRemoteConfigKey = this.getClass().getSimpleName();
+    protected String firebaseRemoteConfigKey = getClass().getSimpleName();
 
     protected abstract void trueAction() throws Exception;
 
@@ -13,7 +13,7 @@ public abstract class Unit implements UnitType {
 
     public void invoke() {
         final FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
-        if (config.getBoolean(firebaseRemoteConfigKey)) {
+        if (config != null && config.getBoolean(firebaseRemoteConfigKey)) {
             try {
                 trueAction();
             } catch (Exception e) {
