@@ -7,20 +7,20 @@ public abstract class Unit implements UnitType {
 
     protected String firebaseRemoteConfigKey = this.getClass().getSimpleName();
 
-    protected abstract void customAction() throws Exception;
+    protected abstract void trueAction() throws Exception;
 
-    protected abstract void defaultAction();
+    protected abstract void falseAction();
 
     public void invoke() {
         final FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
         if (config.getBoolean(firebaseRemoteConfigKey)) {
             try {
-                customAction();
+                trueAction();
             } catch (Exception e) {
-                defaultAction();
+                falseAction();
             }
         } else {
-            defaultAction();
+            falseAction();
         }
     }
 }

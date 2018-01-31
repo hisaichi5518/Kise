@@ -13,12 +13,12 @@ public class ViewVisibleUnit extends Unit {
     }
 
     @Override
-    protected void customAction() throws Exception {
+    protected void trueAction() throws Exception {
         this.view.setVisibility(View.VISIBLE);
     }
 
     @Override
-    protected void defaultAction() {
+    protected void falseAction() {
         this.view.setVisibility(View.GONE);
     }
 }
