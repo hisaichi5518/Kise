@@ -13,13 +13,13 @@ public class HelloTextUnit extends UnitWithReturn<String> {
 
     @Override
     @NonNull
-    protected String customAction() throws Exception {
+    protected String trueAction() throws Exception {
         return "Hi!";
     }
 
     @Override
     @NonNull
-    protected String defaultAction() {
+    protected String falseAction() {
         return "Hello!";
     }
 }

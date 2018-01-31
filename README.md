@@ -35,15 +35,15 @@ public class ViewVisibleUnit extends Unit {
     }
 
     @Override
-    protected void customAction() throws Exception {
+    protected void trueAction() throws Exception {
         // ✅ FirebaseRemoteConfigから返ってきた値が、trueであればこのアクションが実行されます
         this.view.setVisibility(View.VISIBLE);
     }
 
     @Override
-    protected void defaultAction() {
+    protected void falseAction() {
         // ✅ FirebaseRemoteConfigから返ってきた値が、falseであればこのアクションが実行されます
-        // ✅ またcustomActionがExceptionをthrowするとこのアクションが実行されます
+        // ✅ またtrueActionがExceptionをthrowするとこのアクションが実行されます
         this.view.setVisibility(View.GONE);
     }
 }
